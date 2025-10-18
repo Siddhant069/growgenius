@@ -3,8 +3,8 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f7f6;
-    color: #333;
+    background-color: #f8fafd; /* Very light blue-gray for a fresh look */
+    color: #34495e; /* Darker text for readability */
     line-height: 1.6;
 }
 
@@ -17,7 +17,7 @@ body {
 
 h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
-    color: #2c3e50; /* Dark Navy/Charcoal */
+    color: #2c3e50; /* Darker blue-gray, professional */
     margin-bottom: 15px;
 }
 
@@ -27,10 +27,10 @@ h3 { font-size: 1.8em; }
 
 /* Header and Navigation */
 header {
-    background-color: #2c3e50;
+    background-color: #2c3e50; /* Deep blue-gray */
     color: #ecf0f1;
     padding: 15px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Stronger shadow for depth */
 }
 
 header .container {
@@ -43,7 +43,7 @@ header .container {
 .logo {
     font-size: 2.5em;
     font-weight: 700;
-    color: #e67e22; /* Vibrant orange for the logo */
+    color: #3498db; /* A vibrant, trustworthy blue for the logo */
     margin: 0;
 }
 
@@ -66,56 +66,61 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #e67e22;
+    color: #3498db; /* Blue hover for nav links */
 }
 
 /* Hero Section */
 .hero-section {
-    /* Use a placeholder image or replace with your own stock chart background */
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://source.unsplash.com/1600x900/?indian-stock-market,financial-chart') no-repeat center center/cover;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://source.unsplash.com/1600x900/?stock-chart,financial-graph,data') no-repeat center center/cover; /* Dynamic stock chart */
     color: #fff;
     text-align: center;
-    padding: 100px 20px;
+    padding: 120px 20px; /* More padding for impact */
+    position: relative;
+    background-attachment: fixed; /* Parallax effect */
 }
 
 .hero-section h2 {
     color: #fff;
     font-size: 3.5em;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Text shadow for readability on busy background */
 }
 
 .hero-section p {
-    font-size: 1.3em;
+    font-size: 1.4em;
     max-width: 800px;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 40px auto;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 .cta-button {
-    background-color: #e67e22;
+    background-color: #2ecc71; /* A friendly, growth-oriented green */
     color: #fff;
-    padding: 15px 30px;
+    padding: 18px 35px; /* Larger button */
     border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
+    border-radius: 8px; /* Slightly more rounded */
+    font-size: 1.3em;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     text-decoration: none;
     display: inline-block;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .cta-button:hover {
-    background-color: #d35400;
-    transform: translateY(-2px);
+    background-color: #27ae60; /* Darker green on hover */
+    transform: translateY(-3px); /* More pronounced lift */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
 /* Info Sections */
 .info-section {
-    padding: 60px 0;
+    padding: 80px 0; /* More vertical space */
     text-align: center;
 }
 
 .info-section.light-bg {
-    background-color: #eaf0f1; /* Light gray background */
+    background-color: #ecf0f1; /* Light gray-blue */
 }
 
 .info-section h3 {
@@ -130,9 +135,10 @@ nav ul li a:hover {
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: #e67e22;
+    width: 70px; /* Slightly wider underline */
+    height: 4px; /* Thicker underline */
+    background-color: #3498db; /* Blue underline */
+    border-radius: 2px;
 }
 
 .service-cards {
@@ -145,52 +151,65 @@ nav ul li a:hover {
 
 .card {
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 10px; /* More rounded corners */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1); /* Deeper shadow */
     padding: 30px;
     width: 30%;
     min-width: 280px;
-    text-align: left;
+    text-align: center; /* Center content in cards */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 5px solid #3498db; /* A touch of blue on top */
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    transform: translateY(-8px); /* More pronounced lift */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .card h4 {
-    color: #e67e22;
-    font-size: 1.5em;
+    color: #2c3e50; /* Dark blue for card titles */
+    font-size: 1.6em;
     margin-bottom: 15px;
 }
+
+.card-icon {
+    font-size: 3em; /* Large icons */
+    color: #3498db; /* Blue icon color */
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+}
+
+.card:hover .card-icon {
+    color: #2ecc71; /* Green icon on hover */
+}
+
 
 /* Footer */
 footer {
     background-color: #2c3e50;
-    color: #ecf0f1;
+    color: #bdc3c7; /* Lighter text for footer */
     text-align: center;
-    padding: 25px 0;
+    padding: 30px 0;
     font-size: 0.9em;
 }
 
 footer .disclaimer {
     display: block;
-    margin-top: 10px;
+    margin-top: 15px;
     font-size: 0.8em;
-    color: #bdc3c7;
+    color: #95a5a6;
 }
 
 /* Modal (Dialog Box) */
 .modal {
     display: none; 
     position: fixed;
-    z-index: 1000; /* High z-index to ensure it is on top */
+    z-index: 1000; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.7); /* Slightly darker overlay */
     display: flex; 
     align-items: center; 
     justify-content: center; 
@@ -198,78 +217,96 @@ footer .disclaimer {
 
 .modal-content {
     background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
+    padding: 40px; /* More padding */
+    border-radius: 12px; /* More rounded */
     width: 90%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    max-width: 550px; /* Slightly wider */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* Deeper shadow */
     position: relative;
     animation: fadeIn 0.3s ease-out;
 }
 
+.modal-content h3 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 .close-btn {
-    color: #aaa;
+    color: #888;
     position: absolute;
-    top: 15px;
-    right: 25px;
-    font-size: 30px;
+    top: 20px;
+    right: 30px;
+    font-size: 35px; /* Larger close button */
     font-weight: bold;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .close-btn:hover,
 .close-btn:focus {
-    color: #e67e22;
+    color: #e74c3c; /* Red on hover for close */
     text-decoration: none;
 }
 
 /* Form Styling within Modal */
 .modal-content form label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: 600;
-    color: #555;
+    color: #444;
 }
 
 .modal-content form input[type="text"],
 .modal-content form input[type="tel"],
 .modal-content form input[type="email"] {
-    width: calc(100% - 20px);
-    padding: 12px 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
+    width: calc(100% - 24px); /* Account for padding */
+    padding: 14px 12px; /* More padding */
+    margin-bottom: 25px; /* More space between inputs */
+    border: 1px solid #dcdfe4; /* Lighter border */
+    border-radius: 6px;
+    font-size: 1.05em;
     box-sizing: border-box; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.modal-content form input:focus {
+    border-color: #3498db; /* Blue focus border */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3); /* Blue glowing effect */
+}
+
+
 .submit-button {
-    background-color: #28a745; /* Green submit button */
+    background-color: #3498db; /* Blue submit button */
     color: white;
-    padding: 12px 20px;
+    padding: 15px 25px; /* Larger submit button */
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     width: 100%;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .submit-button:hover {
-    background-color: #218838;
+    background-color: #2980b9; /* Darker blue on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
 }
 
 .dialog-disclaimer {
-    font-size: 0.8em;
-    color: #777;
-    margin-top: 15px;
+    font-size: 0.85em;
+    color: #7f8c8d; /* Muted gray for disclaimer */
+    margin-top: 20px;
     text-align: center;
 }
 
 /* Animation for modal */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* Responsive Design */
@@ -288,7 +325,55 @@ footer .disclaimer {
         margin: 0 10px;
     }
 
+    .hero-section h2 {
+        font-size: 2.8em;
+    }
+    .hero-section p {
+        font-size: 1.1em;
+    }
+
+    .cta-button {
+        padding: 14px 28px;
+        font-size: 1.1em;
+    }
+
     .card {
         width: 80%;
+    }
+
+    .modal-content {
+        padding: 30px;
+    }
+
+    .modal-content h3 {
+        font-size: 1.6em;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section h2 {
+        font-size: 2.2em;
+    }
+
+    .logo {
+        font-size: 2em;
+    }
+
+    nav ul li {
+        margin: 0 8px;
+        font-size: 0.9em;
+    }
+
+    .modal-content {
+        padding: 25px;
+    }
+
+    .modal-content form input {
+        padding: 10px;
+        font-size: 1em;
+    }
+    .submit-button {
+        font-size: 1em;
+        padding: 12px 20px;
     }
 }
