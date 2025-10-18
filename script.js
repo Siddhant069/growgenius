@@ -1,12 +1,8 @@
-// Google Sheet Configuration
-const SHEET_ID = '147iXEbZRs1KtJlkUCpLzKUHtmyTBesjnxwLNKETcbfo';
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
-
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     initializeModal();
-    loadTipsFromSheet();
-    setupRefreshButton();
+    setupSmoothScroll();
+    setupFormValidation();
 });
 
 // ===== MODAL FUNCTIONALITY =====
@@ -18,7 +14,8 @@ function initializeModal() {
 
     // Open modal
     openBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             modal.classList.add('active');
         });
     });
@@ -35,10 +32,30 @@ function initializeModal() {
         }
     });
 
-    // Form submission
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // Close modal with Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
+    });
 
+    // Form submission
+    form.addEventListener('submit', handleFormSubmit);
+}
+
+// ===== FORM SUBMISSION =====
+async function handleFormSubmit(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const submitBtn = form.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Processing...';
+
+    try {
         const formData = new FormData(form);
         const data = {
             timestamp: new Date().toLocaleString('en-IN'),
@@ -50,152 +67,238 @@ function initializeModal() {
         };
 
         console.log('Form Data:', data);
-        
-        // Show success message
-        alert('✓ Success! Your registration is confirmed.\n\nCheck your email and SMS for your free trial access.\n\nWelcome to Grow Genius!');
-        
-        form.reset();
-        modal.classList.remove('active');
-    });
 
-    // Smooth scroll for navigation links
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Show success message
+        showNotification('✓ Success! Your registration is confirmed. Check your email for trial access.', 'success');
+
+        // Reset form and close modal
+        form.reset();
+        document.getElementById('lead-dialog').classList.remove('active');
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('❌ An error occurred. Please try again.', 'error');
+    } finally {
+        // Restore button
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    }
+}
+
+// ===== FORM VALIDATION =====
+function setupFormValidation() {
+    const form = document.getElementById('contact-form');
+    const inputs = form.querySelectorAll('input, select');
+
+    inputs.forEach(input => {
+        input.addEventListener('blur', validateField);
+        input.addEventListener('change', validateField);
+    });
+}
+
+function validateField(e) {
+    const field = e.target;
+    const value = field.value.trim();
+
+    // Remove previous error state
+    field.classList.remove('error');
+
+    if (!value) {
+        field.classList.add('error');
+        return false;
+    }
+
+    // Email validation
+    if (field.type === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            field.classList.add('error');
+            return false;
+        }
+    }
+
+    // Mobile validation
+    if (field.name === 'Mobile') {
+        if (!/^\d{10}$/.test(value)) {
+            field.classList.add('error');
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// ===== SMOOTH SCROLL =====
+function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            if (href !== '#' && document.querySelector(href)) {
-                e.preventDefault();
-                document.querySelector(href).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-// ===== FETCH TIPS FROM GOOGLE SHEET =====
-async function loadTipsFromSheet() {
-    try {
-        const response = await fetch(SHEET_URL);
-        
-        if (!response.ok) {
-            throw new Error('Failed to fetch sheet data');
-        }
-
-        const csvText = await response.text();
-        const rows = csvText.trim().split('\n');
-        
-        if (rows.length < 2) {
-            displaySampleTips();
-            return;
-        }
-
-        // Parse CSV
-        const tips = [];
-        for (let i = 1; i < rows.length && i < 11; i++) { // Limit to 10 rows
-            const cols = parseCSVRow(rows[i]);
-            if (cols.length >= 6) {
-                tips.push({
-                    time: cols[0] || '--',
-                    symbol: cols[1] || 'NIFTY50',
-                    type: cols[2] || 'CALL',
-                    entry: cols[3] || '--',
-                    target: cols[4] || '--',
-                    stopLoss: cols[5] || '--',
-                    status: cols[6] || 'Active'
-                });
-            }
-        }
-
-        if (tips.length > 0) {
-            displayTips(tips);
-        } else {
-            displaySampleTips();
-        }
-    } catch (error) {
-        console.error('Error loading tips:', error);
-        displaySampleTips();
-    }
-}
-
-// Parse CSV row handling quoted values
-function parseCSVRow(row) {
-    const result = [];
-    let current = '';
-    let insideQuotes = false;
-
-    for (let i = 0; i < row.length; i++) {
-        const char = row[i];
-        
-        if (char === '"') {
-            insideQuotes = !insideQuotes;
-        } else if (char === ',' && !insideQuotes) {
-            result.push(current.trim().replace(/"/g, ''));
-            current = '';
-        } else {
-            current += char;
-        }
-    }
-    
-    result.push(current.trim().replace(/"/g, ''));
-    return result;
-}
-
-// Display tips in table
-function displayTips(tips) {
-    const tbody = document.getElementById('tips-tbody');
-    tbody.innerHTML = '';
-
-    tips.forEach(tip => {
-        const row = document.createElement('tr');
-        
-        const statusColor = tip.status.toLowerCase() === 'active' ? '#43a047' : 
-                           tip.status.toLowerCase() === 'completed' ? '#1a73e8' : '#ff6d00';
-        
-        row.innerHTML = `
-            <td>${formatTime(tip.time)}</td>
-            <td>${tip.symbol}</td>
-            <td><span style="background: ${tip.type === 'CALL' ? '#43a047' : '#e53935'}; color: white; padding: 4px 8px; border-radius: 3px; font-size: 0.85em; font-weight: 600;">${tip.type}</span></td>
-            <td>${tip.entry}</td>
-            <td>${tip.target}</td>
-            <td>${tip.stopLoss}</td>
-            <td><span style="background: ${statusColor}; color: white; padding: 4px 8px; border-radius: 3px; font-size: 0.85em; font-weight: 600;">${tip.status}</span></td>
-        `;
-        
-        tbody.appendChild(row);
-    });
-}
-
-// Display sample/demo tips if sheet fails to load
-function displaySampleTips() {
-    const sampleTips = [
-        { time: '09:30 AM', symbol: 'NIFTY50', type: 'CALL', entry: '22,150', target: '22,400', stopLoss: '22,000', status: 'Active' },
-        { time: '10:15 AM', symbol: 'BANKNIFTY', type: 'PUT', entry: '45,800', target: '45,200', stopLoss: '46,100', status: 'Active' },
-        { time: '10:45 AM', symbol: 'NIFTY50', type: 'CALL', entry: '22,200', target: '22,500', stopLoss: '22,050', status: 'Active' },
-        { time: '11:30 AM', symbol: 'BANKNIFTY', type: 'CALL', entry: '45,950', target: '46,300', stopLoss: '45,700', status: 'Completed' },
-        { time: '01:00 PM', symbol: 'NIFTY50', type: 'PUT', entry: '22,100', target: '21,800', stopLoss: '22,300', status: 'Active' }
-    ];
-    
-    displayTips(sampleTips);
-}
-
-// Format time display
-function formatTime(timeStr) {
-    if (!timeStr || timeStr === '--') return 'Live';
-    return timeStr;
-}
-
-// Setup refresh button
-function setupRefreshButton() {
-    const refreshLink = document.querySelector('.refresh-tips');
-    if (refreshLink) {
-        refreshLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            const tbody = document.getElementById('tips-tbody');
-            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">Refreshing data...</td></tr>';
             
-            setTimeout(() => {
-                loadTipsFromSheet();
-            }, 500);
+            if (href === '#' || href === '') return;
+
+            const target = document.querySelector(href);
+            
+            if (target) {
+                e.preventDefault();
+                
+                // Close modal if open
+                const modal = document.getElementById('lead-dialog');
+                if (modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                }
+
+                // Smooth scroll
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Add active state to nav
+                updateActiveNavLink(href);
+            }
         });
-    }
+    });
 }
+
+// ===== UPDATE ACTIVE NAV LINK =====
+function updateActiveNavLink(sectionId) {
+    document.querySelectorAll('.navbar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === sectionId) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// ===== NOTIFICATION SYSTEM =====
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            ${message}
+        </div>
+        <button class="notification-close">&times;</button>
+    `;
+
+    // Add to DOM
+    document.body.appendChild(notification);
+
+    // Show notification
+    setTimeout(() => notification.classList.add('show'), 10);
+
+    // Close button functionality
+    notification.querySelector('.notification-close').addEventListener('click', () => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    });
+
+    // Auto close after 5 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }
+    }, 5000);
+}
+
+// ===== SCROLL ANIMATIONS =====
+function setupScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all feature cards and testimonial cards
+    document.querySelectorAll('.feature-card, .testimonial-card, .why-item, .stat').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// ===== PARALLAX EFFECT =====
+function setupParallax() {
+    const heroImage = document.querySelector('.hero-image img');
+    
+    if (!heroImage) return;
+
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+        const heroSection = document.querySelector('.hero');
+        
+        if (scrollPosition < heroSection.offsetHeight) {
+            heroImage.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+        }
+    });
+}
+
+// ===== INITIALIZE ALL EFFECTS =====
+document.addEventListener('DOMContentLoaded', function() {
+    setupScrollAnimations();
+    setupParallax();
+});
+
+// ===== HEADER SCROLL EFFECT =====
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// ===== STATS COUNTER =====
+function initStatsCounter() {
+    const stats = document.querySelectorAll('.stat h3');
+    
+    stats.forEach(stat => {
+        const finalValue = stat.textContent;
+        const numericValue = parseInt(finalValue);
+        
+        if (isNaN(numericValue)) return;
+
+        let currentValue = 0;
+        const increment = Math.ceil(numericValue / 50);
+        
+        const counter = setInterval(() => {
+            currentValue += increment;
+            
+            if (currentValue >= numericValue) {
+                stat.textContent = finalValue;
+                clearInterval(counter);
+            } else {
+                stat.textContent = currentValue + '+';
+            }
+        }, 30);
+    });
+}
+
+// Trigger counter when stats section comes into view
+document.addEventListener('DOMContentLoaded', function() {
+    const statsSection = document.querySelector('.trust-section');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                initStatsCounter();
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+});

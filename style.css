@@ -69,6 +69,11 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: all 0.3s ease;
+}
+
+header.scrolled {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .header-container {
@@ -320,78 +325,6 @@ header {
 
 .why-item p {
     font-size: 0.95em;
-}
-
-/* ===== TIPS SECTION ===== */
-.tips-section {
-    padding: 80px 0;
-    background: var(--bg-light);
-}
-
-.tips-container {
-    margin-top: 40px;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.tips-table-wrapper {
-    overflow-x: auto;
-}
-
-.tips-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95em;
-}
-
-.tips-table thead {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: white;
-}
-
-.tips-table th {
-    padding: 18px 15px;
-    text-align: left;
-    font-weight: 600;
-}
-
-.tips-table td {
-    padding: 15px;
-    border-bottom: 1px solid var(--border);
-}
-
-.tips-table tbody tr:hover {
-    background: var(--bg-lighter);
-}
-
-.tips-table tbody tr td:first-child,
-.tips-table tbody tr td:nth-child(2) {
-    font-weight: 600;
-    color: var(--primary);
-}
-
-.tips-note {
-    text-align: center;
-    margin-top: 30px;
-    color: var(--text-light);
-    font-size: 0.95em;
-}
-
-.tips-note a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.tips-note a:hover {
-    text-decoration: underline;
-}
-
-.refresh-tips {
-    cursor: pointer;
-    margin: 0 5px;
 }
 
 /* ===== TESTIMONIALS SECTION ===== */
@@ -683,18 +616,8 @@ footer {
     .features,
     .why-us,
     .testimonials,
-    .tips-section,
     .cta-final {
         padding: 50px 0;
-    }
-
-    .tips-table {
-        font-size: 0.85em;
-    }
-
-    .tips-table th,
-    .tips-table td {
-        padding: 10px 8px;
     }
 
     .navbar ul {
