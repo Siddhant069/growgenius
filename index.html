@@ -1,578 +1,1325 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Grow Geniuss - India's Premier F&O Trading Platform. SEBI Registered expert guidance.">
-  <title>Grow Geniuss | Premier F&O Trading Platform</title>
+  <title>Grow Genius - F&O Trading Platform | SEBI Registered</title>
 
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- External CSS -->
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Octa-inspired Premium Color Palette */
+      --primary-purple: #6366F1;
+      --primary-blue: #3B82F6;
+      --accent-orange: #FF6B35;
+      --accent-cyan: #06B6D4;
+      --dark-navy: #0F172A;
+      --deep-blue: #1E293B;
+      --midnight: #0A0E1A;
+      
+      /* Gradients */
+      --gradient-main: linear-gradient(135deg, #6366F1 0%, #3B82F6 50%, #06B6D4 100%);
+      --gradient-warm: linear-gradient(135deg, #FF6B35 0%, #F59E0B 100%);
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+      
+      /* Text */
+      --text-primary: #FFFFFF;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      
+      /* Surfaces */
+      --surface-dark: rgba(15, 23, 42, 0.95);
+      --surface-glass: rgba(30, 41, 59, 0.6);
+      --border-glow: rgba(99, 102, 241, 0.3);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark-navy);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 107, 53, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: bgPulse 15s ease-in-out infinite;
+    }
+
+    @keyframes bgPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Header */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--surface-dark);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-glow);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 900;
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    .main-nav ul {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .main-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-main);
+      transition: width 0.3s;
+    }
+
+    .main-nav a:hover {
+      color: var(--text-primary);
+    }
+
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 0.85rem 2rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      letter-spacing: 0.3px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 2px solid rgba(99, 102, 241, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-outline::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-main);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary-purple);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-outline:hover::before {
+      opacity: 0.1;
+    }
+
+    .btn-primary {
+      background: var(--gradient-warm);
+      color: white;
+      border: none;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255, 107, 53, 0.5);
+    }
+
+    /* Hero Section */
+    .hero {
+      margin-top: 80px;
+      padding: 6rem 2rem 4rem;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .hero-left h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+    }
+
+    .hero-left h1 .highlight {
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .lead {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .badge i {
+      color: var(--primary-purple);
+      font-size: 1rem;
+    }
+
+    /* Hero Image Card */
+    .hero-visual {
+      position: relative;
+      height: 550px;
+      perspective: 1000px;
+    }
+
+    .trading-mockup {
+      position: relative;
+      height: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--border-glow);
+      box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(99, 102, 241, 0.2);
+      transform: rotateY(-5deg) rotateX(2deg);
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 1.5rem;
+    }
+
+    .trading-mockup:hover {
+      transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+    }
+
+    #tradingChart {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Floating Elements */
+    .float-element {
+      position: absolute;
+      background: var(--surface-glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-glow);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .float-element.profit {
+      top: 10%;
+      right: -5%;
+      animation-delay: 0s;
+    }
+
+    .float-element.trend {
+      bottom: 15%;
+      left: -5%;
+      animation-delay: 1.5s;
+    }
+
+    .float-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .float-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-warm);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .float-text h4 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .float-text p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Trust Section */
+    .trust-section {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: var(--surface-dark);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border-glow);
+      border-bottom: 1px solid var(--border-glow);
+      position: relative;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .trust-section h2 {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.5px;
+    }
+
+    .trust-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 4rem;
+      font-weight: 400;
+    }
+
+    .trust-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat {
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-main);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .stat:hover::before {
+      opacity: 1;
+    }
+
+    .stat:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+
+    .stat h3 {
+      font-size: 3rem;
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      font-weight: 900;
+    }
+
+    .stat p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    /* Features Section */
+    .section {
+      padding: 6rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .features-label {
+      color: var(--accent-orange);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .section h3 {
+      font-size: 3rem;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    .section > p {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+      margin-bottom: 4rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-top: 4rem;
+    }
+
+    .feature-card {
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-main);
+      transform: scaleX(0);
+      transition: transform 0.5s;
+    }
+
+    .feature-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 25px 70px rgba(99, 102, 241, 0.25);
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+
+    .feature-icon {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 2rem;
+      background: var(--gradient-main);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+      transition: all 0.5s;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: rotateY(360deg);
+      box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+    }
+
+    .feature-card h5 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    /* Why Grid */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+      margin-top: 4rem;
+    }
+
+    .why-item {
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 20px;
+      padding: 2.5rem;
+      transition: all 0.4s;
+      position: relative;
+    }
+
+    .why-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 0;
+      background: var(--gradient-warm);
+      transition: height 0.4s;
+      border-radius: 20px 0 0 20px;
+    }
+
+    .why-item:hover::before {
+      height: 100%;
+    }
+
+    .why-item:hover {
+      transform: translateX(8px);
+      box-shadow: 0 15px 40px rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .why-item h4 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+    }
+
+    .why-item p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--surface-dark);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border-glow);
+      padding: 2.5rem 2rem;
+      margin-top: 6rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin: 0 1rem;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .modal-panel {
+      position: relative;
+      background: var(--gradient-dark);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glow);
+      border-radius: 28px;
+      padding: 3.5rem;
+      max-width: 550px;
+      width: 90%;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7);
+      animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 2rem;
+      cursor: pointer;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: rotate(90deg);
+    }
+
+    .modal-panel h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.8rem;
+      font-weight: 800;
+    }
+
+    .modal-panel > p {
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      font-size: 1.05rem;
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .modal-form input,
+    .modal-form select {
+      padding: 1.1rem 1.3rem;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .modal-form input:focus,
+    .modal-form select:focus {
+      outline: none;
+      border-color: var(--primary-purple);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    }
+
+    .modal-form input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .w-100 {
+      width: 100%;
+      font-size: 1.05rem;
+      padding: 1.2rem;
+    }
+
+    .modal-note {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .modal-note i {
+      color: var(--primary-purple);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-left h1 {
+        font-size: 3rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-wrap: wrap;
+      }
+
+      .main-nav {
+        display: none;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .hero-left h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-visual {
+        height: 400px;
+      }
+
+      .float-element {
+        display: none;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+
+      .cta-row {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">Grow Genius</div>
 
-  <div class="bg-mesh"></div>
-
-  <!-- HEADER -->
-  <header class="navbar">
-    <div class="container navbar-inner">
-      <a href="#home" class="brand">
-        <i class="fas fa-chart-line"></i>
-        Grow Geniuss
-      </a>
-
-      <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle Menu">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <nav>
-        <ul class="nav-links" id="nav-links">
-          <li><a href="#home" class="nav-link active">Home</a></li>
-          <li><a href="#features" class="nav-link">Features</a></li>
-          <li><a href="#why-us" class="nav-link">Why Us</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
+      <nav class="main-nav" role="navigation" aria-label="Main">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#why">Why Us</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-      
-      <!-- Login Button Removed as requested -->
+
+      <div class="header-actions">
+        <button class="btn btn-outline" id="open-dialog-btn-header">Open Account</button>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- HERO SECTION -->
-    <section id="home" class="hero container">
-      <div class="hero-grid">
-        <div class="hero-content fade-up">
-          <h1>
-            Trade Smarter with 
-            <span class="text-gradient">Institutional Grade</span> Intelligence
-          </h1>
-          <p>
-            Join India's fastest-growing community of disciplined traders. Get SEBI-registered calls, AI-powered trend analysis, and superior risk management strategies for Nifty & Bank Nifty.
-          </p>
-          <div class="hero-btns">
-            <!-- UPDATED TEXT: Start Free Trial -> Join Us -->
-            <button class="btn btn-primary modal-trigger">Join Us <i class="fas fa-arrow-right"></i></button>
-            <!-- Explore Features Button Removed as requested -->
-          </div>
-
-          <div class="trust-badges">
-            <div class="t-badge"><i class="fas fa-shield-alt"></i> SEBI Registered</div>
-            <div class="t-badge"><i class="fas fa-users"></i> 50k+ Traders</div>
-            <div class="t-badge"><i class="fas fa-bolt"></i> Low Latency</div>
+    <section id="home" class="hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <h1>Master <span class="highlight">F&O Trading</span> with Expert Guidance</h1>
+          <p class="lead">India's most trusted Futures & Options platform. SEBI Registered. Daily expert tips for Nifty & Bank Nifty with proven risk management strategies.</p>
+          <div class="hero-ctas">
+            <div class="cta-row">
+              <button class="btn btn-primary" id="open-dialog-btn">Get Free Trial Now</button>
+            </div>
+            <div class="hero-badges">
+              <div class="badge"><i class="fas fa-check-circle"></i> SEBI Registered</div>
+              <div class="badge"><i class="fas fa-check-circle"></i> No Credit Card</div>
+              <div class="badge"><i class="fas fa-check-circle"></i> Instant Access</div>
+            </div>
           </div>
         </div>
 
-        <div class="hero-visual fade-up">
-          <div class="chart-card">
-            <div class="chart-header">
-              <span class="chart-title">BANKNIFTY <span class="live-badge">LIVE</span></span>
-              <span class="chart-subtitle">15m Timeframe</span>
+        <div class="hero-right">
+          <div class="hero-visual">
+            <div class="trading-mockup">
+              <canvas id="tradingChart"></canvas>
             </div>
-            <!-- Wrapper to control chart size -->
-            <div class="chart-wrapper">
-              <canvas id="heroChart"></canvas>
+            
+            <div class="float-element profit">
+              <div class="float-stat">
+                <div class="float-icon">📈</div>
+                <div class="float-text">
+                  <h4>+85%</h4>
+                  <p>Success Rate</p>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div class="floating-stat stat-profit">
-            <i class="fas fa-arrow-up text-green"></i>
-            <div>
-              <div class="stat-value">+12.4%</div>
-              <div class="stat-label">Weekly ROI</div>
-            </div>
-          </div>
-          
-          <div class="floating-stat stat-users">
-            <i class="fas fa-user-check text-secondary"></i>
-            <div>
-              <div class="stat-value">85%</div>
-              <div class="stat-label">Accuracy Rate</div>
+
+            <div class="float-element trend">
+              <div class="float-stat">
+                <div class="float-icon">💰</div>
+                <div class="float-text">
+                  <h4>₹50L+</h4>
+                  <p>Avg Portfolio</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FEATURES -->
-    <section id="features" class="section-spacing container">
-      <div class="section-header fade-up">
-        <span class="subtitle">Platform Capabilities</span>
-        <h2>Institutional Tools for Retail Traders</h2>
-        <p class="section-desc">We bridge the gap between retail and institutional trading with professional data, speed, and accuracy.</p>
+    <section id="trust" class="trust-section">
+      <div class="container">
+        <h2>India's #1 F&O Trading Platform</h2>
+        <p class="trust-subtitle">Trusted by 50,000+ Indian traders | SEBI Registered & Regulated</p>
+
+        <div class="trust-stats">
+          <div class="stat">
+            <h3>50K+</h3>
+            <p>Active Traders</p>
+          </div>
+          <div class="stat">
+            <h3>85%</h3>
+            <p>Customer Loyalty</p>
+          </div>
+          <div class="stat">
+            <h3>10+</h3>
+            <p>Years Experience</p>
+          </div>
+          <div class="stat">
+            <h3>24/7</h3>
+            <p>Live Support</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="container section"> 
+      <div class="features-header">
+        <span class="features-label">FEATURES</span>
+        <h3>The Most Trusted Platform<br>For F&O Trading</h3>
+        <p>Get expert F&O market advice, risk-managed calls with targets and stop-loss, and 24/7 support to make confident trading decisions.</p>
       </div>
 
       <div class="features-grid">
-        <div class="feature-card fade-up">
-          <div class="icon-box"><i class="fas fa-bullseye"></i></div>
-          <h4>Precision Calls</h4>
-          <p>Get entry, exit, and stop-loss levels derived from quantitative models and technical analysis, not just gut feeling.</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="icon-box"><i class="fas fa-brain"></i></div>
-          <h4>Risk Management</h4>
-          <p>We prioritize capital protection. Our strategies are designed to maintain a healthy Risk:Reward ratio of 1:2 minimum.</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="icon-box"><i class="fas fa-laptop-code"></i></div>
-          <h4>Real-time Analytics</h4>
-          <p>Access our dashboard for Option Chain analysis, PCR ratios, and OI spurts to catch market moves before they happen.</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="icon-box"><i class="fas fa-graduation-cap"></i></div>
-          <h4>Education First</h4>
-          <p>Don't just copy trades. Learn the logic behind every call with our daily pre-market and post-market reports.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHY US SECTION -->
-    <section id="why-us" class="section-spacing bg-dark-alt">
-      <div class="container">
-        <div class="section-header fade-up">
-          <span class="subtitle">Our Edge</span>
-          <h2>Why 50,000+ Traders Choose Us</h2>
-          <p class="section-desc">It's not just about signals; it's about consistency, trust, and proven results.</p>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h5>Professional Insights</h5>
+          <p>Backed by years of industry experience and actionable data to help you make informed trading decisions.</p>
         </div>
 
-        <!-- Stats Grid -->
-        <div class="stats-grid fade-up" style="margin-bottom: 80px;">
-          <div class="stat-item">
-            <h3>₹50Cr+</h3>
-            <p>Daily Turnover</p>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-coins"></i>
           </div>
-          <div class="stat-item">
-            <h3>50k+</h3>
-            <p>Active Users</p>
-          </div>
-          <div class="stat-item">
-            <h3>4.8/5</h3>
-            <p>User Rating</p>
-          </div>
-          <div class="stat-item">
-            <h3>24/7</h3>
-            <p>Expert Support</p>
-          </div>
+          <h5>Trusted Platform</h5>
+          <p>User-friendly trading tools for seamless decision-making and managing your investments effectively.</p>
         </div>
 
-        <!-- Testimonials -->
-        <div class="testimonials-grid">
-          <div class="review-card fade-up">
-            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="review-text">"I've tried 5 different advisory services, but Grow Geniuss is the only one that focuses on Risk Management. My capital is finally safe and growing."</p>
-            <div class="user-info">
-              <div class="avatar">R</div>
-              <div>
-                <div class="user-name">Rajesh Kumar</div>
-                <div class="user-role">Professional Trader, Mumbai</div>
-              </div>
-            </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
           </div>
-
-          <div class="review-card fade-up">
-            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-            <p class="review-text">"The accuracy in Bank Nifty expiry moves is insane. Recovered my past losses in just 2 months. Highly recommended for beginners."</p>
-            <div class="user-info">
-              <div class="avatar bg-secondary">S</div>
-              <div>
-                <div class="user-name">Sneha Patel</div>
-                <div class="user-role">IT Professional, Bangalore</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="review-card fade-up">
-            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="review-text">"Transparent and honest. If the market is choppy, they tell us to stay out. That honesty is rare in this industry."</p>
-            <div class="user-info">
-              <div class="avatar bg-accent">A</div>
-              <div>
-                <div class="user-name">Amit Verma</div>
-                <div class="user-role">Business Owner, Delhi</div>
-              </div>
-            </div>
-          </div>
+          <h5>Community Of Traders</h5>
+          <p>Join a growing network of traders achieving consistent success and sharing valuable market insights.</p>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="section-spacing container">
-      <div class="section-header fade-up">
-        <span class="subtitle">Get In Touch</span>
-        <h2>We're Here to Help</h2>
-        <p class="section-desc">Have questions about our premium plans or need support? Reach out to us.</p>
-      </div>
-
-      <div class="contact-wrapper fade-up">
-        <div class="contact-info">
-          <div class="contact-card">
-            <i class="fas fa-map-marker-alt"></i>
-            <div>
-              <h5>Visit Us</h5>
-              <p>1204, Tower B, Trade Centre,<br>BKC, Mumbai, Maharashtra 400051</p>
-            </div>
-          </div>
-          <div class="contact-card">
-            <i class="fas fa-envelope"></i>
-            <div>
-              <h5>Email Us</h5>
-              <p>support@growgenius.in<br>sales@growgenius.in</p>
-            </div>
-          </div>
-          <div class="contact-card">
-            <i class="fas fa-phone-alt"></i>
-            <div>
-              <h5>Call Us</h5>
-              <p>+91 98765 43210<br>Mon-Fri, 9am - 6pm</p>
-            </div>
-          </div>
+    <section id="why" class="container section">
+      <h3>Why Choose Grow Genius?</h3>
+      <div class="why-grid">
+        <div class="why-item">
+          <h4>✓ SEBI Registered</h4>
+          <p>Fully licensed and regulated by SEBI for secure and compliant trading.</p>
         </div>
-
-        <form id="contactForm" class="contact-form">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-input" placeholder="Your Full Name" required>
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" class="form-input" placeholder="Your Email Address" required>
-          </div>
-          <div class="form-group">
-            <label>Message</label>
-            <textarea class="form-input" rows="4" placeholder="How can we help you?" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary w-full">Send Message</button>
-        </form>
+        <div class="why-item">
+          <h4>✓ Indian Market Experts</h4>
+          <p>Specialized expertise in Nifty & Bank Nifty derivatives trading.</p>
+        </div>
+        <div class="why-item">
+          <h4>✓ Customer Loyalty</h4>
+          <p>85% customer loyalty — trusted and preferred by Indian traders nationwide.</p>
+        </div>
+        <div class="why-item">
+          <h4>✓ Transparent & No Hidden Clause</h4>
+          <p>Complete transparency in pricing. No hidden charges or surprise fees.</p>
+        </div>
       </div>
     </section>
-
-    <!-- CTA BANNER -->
-    <section class="container cta-section">
-      <div class="cta-banner fade-up">
-        <h2 class="cta-title">Ready to Upgrade Your Trading?</h2>
-        <p class="cta-desc">Join 50,000+ traders making smarter decisions today.</p>
-        <!-- UPDATED TEXT: Get Started Now -> Join Us Now -->
-        <button class="btn btn-white modal-trigger">
-          Join Us Now
-        </button>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div>
-            <a href="#" class="brand mb-20">Grow Geniuss</a>
-            <p class="footer-desc">
-              Empowering Indian traders with institutional-grade data, expert insights, and disciplined risk management strategies.
-            </p>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-telegram"></i></a>
-              <a href="#"><i class="fab fa-youtube"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-          
-          <div>
-            <h5>Quick Links</h5>
-            <ul class="footer-links">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#features">Features</a></li>
-              <li><a href="#why-us">Why Us</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h5>Legal</h5>
-            <ul class="footer-links">
-              <li><a href="privacy.html">Privacy Policy</a></li>
-              <li><a href="terms.html">Terms of Service</a></li>
-              <li><a href="refund.html">Refund Policy</a></li>
-              <li><a href="disclaimer.html">Disclaimer</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h5>Contact Us</h5>
-            <ul class="footer-links">
-              <li><a><i class="fas fa-phone"></i> +91 81690 02642</a></li>
-              <li><a ><i class="fas fa-envelope"></i> info@stockwiseiq.in</a></li>
-              <li><a ><i class="fas fa-map-marker-alt"></i> Stock wise IQ, Sanpada, Thane, Pin: 400705</a></li>
-              <li><a ><i class="fas fa-map-marker-alt"></i> PN-C/7, G Block BKC, Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra 400051, India</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="disclaimer">
-          <p><strong>Risk Disclosure:</strong> Investment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BASL and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors. The securities quoted are for illustration only and are not recommendatory.</p>
-          <br>
-          <p class="text-center">&copy; <span id="year"></span> Grow Geniuss Financial Services. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
   </main>
 
-  <!-- MODAL -->
-  <div id="leadModal" class="modal">
-    <div class="modal-backdrop"></div>
-    <div class="modal-content">
-      <button class="modal-close">&times;</button>
-      
-      <div class="modal-header">
-        <h3>Join Our Community</h3> <!-- Updated Modal Title -->
-        <!-- <p>Get 3 days of premium access for free.</p> -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Grow Genius. SEBI Registered.</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a> · 
+        <a href="#">Terms</a> · 
+        <a href="#">Risk Disclosure</a>
       </div>
+    </div>
+  </footer>
 
-      <form id="leadForm">
-        <div class="form-group">
-          <input type="text" class="form-input" placeholder="Full Name" required>
-        </div>
-        <div class="form-group">
-          <input type="tel" class="form-input" placeholder="Mobile Number" required>
-        </div>
-        <div class="form-group">
-          <input type="email" class="form-input" placeholder="Email Address" required>
-        </div>
-        <div class="form-group">
-          <select class="form-input text-dark">
-            <option value="" disabled selected>Experience Level</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="pro">Professional</option>
+  <div id="lead-dialog" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-panel" role="document">
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+      <h2 id="modal-title">Get Your Free F&O Trial</h2>
+      <p>Join 50K+ Indian traders. SEBI Registered & Secure!</p>
+
+      <form id="contact-form" class="modal-form">
+        <input type="text" name="name" placeholder="Full name" required>
+        <input type="email" name="email" placeholder="Email address" required>
+        <input type="tel" name="mobile" placeholder="Mobile (10 digits)" pattern="[0-9]{10}" required>
+
+        <div class="form-row">
+          <select name="experience" required>
+            <option value="">Trading Experience</option>
+            <option value="Beginner">Beginner (0-1 year)</option>
+            <option value="Intermediate">Intermediate (1-3 years)</option>
+            <option value="Advanced">Advanced (3+ years)</option>
+          </select>
+
+          <select name="interest" required>
+            <option value="">Your Interest</option>
+            <option value="Nifty50">Nifty 50</option>
+            <option value="BankNifty">Bank Nifty</option>
+            <option value="Both">Both</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary w-full">Get Onboard Now</button>
+
+        <button type="submit" class="btn btn-primary w-100" id="submit-lead">Start Free Trial</button>
       </form>
-      <p class="modal-footer-note">
-        <i class="fas fa-lock"></i> Your data is 100% secure with us.
+      <p class="modal-note">
+        <i class="fas fa-lock"></i>
+        Your data is secure. SEBI Registered & Compliant.
       </p>
     </div>
   </div>
 
-  <!-- SCRIPTS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
   <script>
-    // --- Existing script.js content integrated here for a single-file solution ---
-
-    // 1. Mobile Menu Toggle
-    const menuToggle = document.getElementById('menu-toggle');
-    const navLinks = document.getElementById('nav-links');
-    const navLinkEls = document.querySelectorAll('.nav-link');
-
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      menuToggle.querySelector('i').classList.toggle('fa-bars');
-      menuToggle.querySelector('i').classList.toggle('fa-times');
-    });
-
-    // Close menu when a link is clicked (for mobile)
-    navLinkEls.forEach(link => {
-      link.addEventListener('click', () => {
-        if (navLinks.classList.contains('open')) {
-          navLinks.classList.remove('open');
-          menuToggle.querySelector('i').classList.remove('fa-times');
-          menuToggle.querySelector('i').classList.add('fa-bars');
-        }
-      });
-    });
-
-    // 2. Modal Logic
-    const modal = document.getElementById('leadModal');
-    const modalTriggers = document.querySelectorAll('.modal-trigger');
-    const modalClose = document.querySelector('.modal-close');
-    const modalBackdrop = document.querySelector('.modal-backdrop');
-
-    modalTriggers.forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        modal.classList.add('open');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
-      });
-    });
-
-    function closeModal() {
-      modal.classList.remove('open');
-      document.body.style.overflow = ''; // Restore scrolling
-    }
-
-    modalClose.addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', closeModal);
-    
-    // Prevent form submission (for demo purposes)
-    const leadForm = document.getElementById('leadForm');
-    if (leadForm) {
-      leadForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // Here you would typically send data to a server
-        console.log('Lead form submitted (demo)');
-        closeModal();
-      });
-    }
-    
-    // 3. Smooth Scroll Navigation (Fix for Why Us tab dash)
-    navLinkEls.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Manually set the active class immediately on click
-            navLinkEls.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-
-            // Existing smooth scroll behavior (optional, but good practice for hash links)
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-    // 4. Scroll Spy for Highlighting Active Link
-    const sections = document.querySelectorAll('section');
-    const navBar = document.querySelector('.navbar');
-
-    function scrollSpy() {
-      let current = '';
-      const navHeight = navBar.offsetHeight;
-
-      // Determine the section currently in view
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - navHeight - 1; // Adjust for navbar height
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop) {
-          current = section.getAttribute('id');
-        }
-      });
-
-      // Highlight the corresponding navigation link
-      navLinkEls.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').includes(current)) {
-          link.classList.add('active');
-        }
-      });
-    }
-
-    window.addEventListener('scroll', scrollSpy);
-    window.addEventListener('load', scrollSpy); // Run on load to set initial state
-
-    // 5. Header Stickiness (optional but often expected)
-    function checkHeaderStickiness() {
-        if (window.pageYOffset > 50) {
-            navBar.classList.add('sticky');
-        } else {
-            navBar.classList.remove('sticky');
-        }
-    }
-    window.addEventListener('scroll', checkHeaderStickiness);
-    window.addEventListener('load', checkHeaderStickiness);
-
-    // 6. Fade-up Animations (Intersection Observer)
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // Stop observing once visible
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.fade-up').forEach(element => {
-      observer.observe(element);
-    });
-
-    // 7. Dynamic Year in Footer
+    // Set current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 8. Demo Chart.js Initialization
-    function initializeChart() {
-        const ctx = document.getElementById('heroChart');
-        if (!ctx) return;
+    // Create Candlestick-style Trading Chart
+    const ctx = document.getElementById('tradingChart');
+    if (ctx) {
+      const chartCtx = ctx.getContext('2d');
+      
+      // Generate realistic candlestick data with upward trend
+      function generateCandlestickData(points) {
+        const candles = [];
+        let basePrice = 18000;
+        
+        for (let i = 0; i < points; i++) {
+          const isGreen = Math.random() > 0.35; // 65% bullish
+          const bodySize = 50 + Math.random() * 150;
+          const wickSize = 30 + Math.random() * 100;
+          
+          let open, close, high, low;
+          
+          if (isGreen) {
+            open = basePrice;
+            close = basePrice + bodySize;
+            high = close + wickSize * 0.5;
+            low = open - wickSize * 0.3;
+            basePrice += bodySize * 0.7; // Upward trend
+          } else {
+            open = basePrice + bodySize;
+            close = basePrice;
+            high = open + wickSize * 0.3;
+            low = close - wickSize * 0.5;
+            basePrice -= bodySize * 0.3; // Small pullback
+          }
+          
+          candles.push({
+            open: Math.max(17500, open),
+            close: Math.max(17500, close),
+            high: Math.max(17500, high),
+            low: Math.max(17500, low),
+            isGreen: isGreen
+          });
+        }
+        return candles;
+      }
 
-        const data = {
-            labels: ['9:15', '10:00', '10:45', '11:30', '12:15', '1:00', '1:45', '2:30', '3:30'],
-            datasets: [{
-                label: 'BANKNIFTY',
-                data: [47000, 47100, 47050, 47250, 47300, 47200, 47400, 47550, 47500],
-                borderColor: '#1e90ff', // A strong blue color
-                backgroundColor: 'rgba(30, 144, 255, 0.1)',
-                fill: true,
-                tension: 0.4,
-                pointRadius: 3,
-                pointHoverRadius: 5,
-                borderWidth: 3,
-                pointBackgroundColor: '#1e90ff',
-            }]
-        };
+      const candleData = generateCandlestickData(40);
+      const labels = Array.from({length: 40}, (_, i) => i);
 
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false,
-                        callbacks: {
-                            title: (tooltipItems) => {
-                                return `Time: ${tooltipItems[0].label}`;
-                            },
-                            label: (context) => {
-                                return `Price: ${context.formattedValue}`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        grid: {
-                            display: false,
-                            borderColor: '#3c4043'
-                        },
-                        ticks: {
-                            color: '#e0e0e0'
-                        }
-                    },
-                    y: {
-                        beginAtZero: false,
-                        grid: {
-                            color: '#3c4043',
-                            drawBorder: false
-                        },
-                        ticks: {
-                            color: '#e0e0e0'
-                        }
-                    }
-                }
+      // Create datasets for candlestick visualization
+      const highData = candleData.map(c => c.high);
+      const lowData = candleData.map(c => c.low);
+      const openData = candleData.map(c => c.open);
+      const closeData = candleData.map(c => c.close);
+
+      // Calculate moving average
+      const maData = closeData.map((_, i) => {
+        const start = Math.max(0, i - 8);
+        const slice = closeData.slice(start, i + 1);
+        return slice.reduce((a, b) => a + b, 0) / slice.length;
+      });
+
+      new Chart(chartCtx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            // Candlestick bodies (green)
+            {
+              label: 'Bullish',
+              data: candleData.map((c, i) => c.isGreen ? {x: i, y: [c.open, c.close]} : null),
+              backgroundColor: 'rgba(34, 197, 94, 0.8)',
+              borderColor: '#22C55E',
+              borderWidth: 2,
+              type: 'bar',
+              barThickness: 8,
+              order: 2
+            },
+            // Candlestick bodies (red)
+            {
+              label: 'Bearish',
+              data: candleData.map((c, i) => !c.isGreen ? {x: i, y: [c.close, c.open]} : null),
+              backgroundColor: 'rgba(239, 68, 68, 0.8)',
+              borderColor: '#EF4444',
+              borderWidth: 2,
+              type: 'bar',
+              barThickness: 8,
+              order: 2
+            },
+            // High-Low wicks
+            {
+              label: 'Price Range',
+              data: candleData.map((c, i) => ({x: i, y: c.high})),
+              backgroundColor: 'transparent',
+              borderColor: 'rgba(148, 163, 184, 0.5)',
+              borderWidth: 1,
+              pointRadius: 0,
+              showLine: false,
+              order: 3
+            },
+            // Moving Average
+            {
+              label: 'MA(9)',
+              data: maData,
+              borderColor: '#6366F1',
+              backgroundColor: 'transparent',
+              borderWidth: 2.5,
+              tension: 0.4,
+              pointRadius: 0,
+              order: 1,
+              borderDash: [5, 5]
+            },
+            // Trend line
+            {
+              label: 'Trend',
+              data: closeData,
+              borderColor: '#06B6D4',
+              backgroundColor: 'transparent',
+              borderWidth: 2,
+              tension: 0.4,
+              pointRadius: 0,
+              order: 1
             }
-        };
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              enabled: true,
+              backgroundColor: 'rgba(15, 23, 42, 0.95)',
+              titleColor: '#fff',
+              bodyColor: '#94A3B8',
+              borderColor: '#6366F1',
+              borderWidth: 2,
+              padding: 16,
+              callbacks: {
+                label: function(context) {
+                  if (context.datasetIndex < 2) {
+                    const candle = candleData[context.dataIndex];
+                    if (candle) {
+                      return [
+                        `Open: ₹${candle.open.toFixed(2)}`,
+                        `High: ₹${candle.high.toFixed(2)}`,
+                        `Low: ₹${candle.low.toFixed(2)}`,
+                        `Close: ₹${candle.close.toFixed(2)}`
+                      ];
+                    }
+                  }
+                  return context.dataset.label + ': ₹' + context.parsed.y.toFixed(2);
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              display: false
+            },
+            y: {
+              position: 'right',
+              border: {
+                display: false
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)',
+                drawTicks: false
+              },
+              ticks: {
+                color: '#64748B',
+                font: {
+                  size: 11,
+                  weight: 600
+                },
+                padding: 12,
+                callback: function(value) {
+                  return '₹' + value.toFixed(0);
+                }
+              }
+            }
+          },
+          animation: {
+            duration: 2000,
+            easing: 'easeInOutQuart'
+          }
+        }
+      });
 
-        new Chart(ctx, config);
+      // Draw custom candlestick wicks
+      const plugin = {
+        id: 'candleWicks',
+        afterDatasetsDraw: function(chart) {
+          const ctx = chart.ctx;
+          chart.data.datasets.forEach((dataset, datasetIndex) => {
+            if (datasetIndex < 2) { // Only for candlestick datasets
+              const meta = chart.getDatasetMeta(datasetIndex);
+              meta.data.forEach((bar, index) => {
+                if (bar) {
+                  const candle = candleData[index];
+                  if (candle) {
+                    const x = bar.x;
+                    const yHigh = chart.scales.y.getPixelForValue(candle.high);
+                    const yLow = chart.scales.y.getPixelForValue(candle.low);
+                    const yOpen = chart.scales.y.getPixelForValue(candle.open);
+                    const yClose = chart.scales.y.getPixelForValue(candle.close);
+                    
+                    ctx.strokeStyle = candle.isGreen ? '#22C55E' : '#EF4444';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x, yHigh);
+                    ctx.lineTo(x, Math.min(yOpen, yClose));
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(x, yLow);
+                    ctx.lineTo(x, Math.max(yOpen, yClose));
+                    ctx.stroke();
+                  }
+                }
+              });
+            }
+          });
+        }
+      };
+
+      Chart.register(plugin);
     }
-    
-    // Initializing the chart on window load
-    window.addEventListener('load', initializeChart);
 
-    // --- End of script.js content ---
+    // Modal controls
+    const modal = document.getElementById('lead-dialog');
+    const openBtns = document.querySelectorAll('#open-dialog-btn, #open-dialog-btn-header');
+    const closeBtn = document.getElementById('modal-close');
+    const backdrop = document.getElementById('modal-backdrop');
+
+    openBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    const closeModal = () => {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+
+    // Form submission
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      
+      console.log('Form submitted:', data);
+      alert('Thank you! We will contact you shortly.');
+      closeModal();
+      e.target.reset();
+    });
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
   </script>
 </body>
 </html>
